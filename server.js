@@ -6,10 +6,31 @@ const config = require("./config.json");
 // koa files
 const koa = require("koa");
 const serve = require("koa-static");
-
+const jwt = require("koa-jwt");
 const bodyParser = require("koa-bodyparser");
 
+const main = require("./server/controllers/main");
+
 const app = koa();
+
+// JSON Web Tokens
+app.use(function* catchErrors(next) {
+  try {
+    yield next;
+  } catch(e) {
+    if (e.status == 401 ) {
+      this.status = e.status;
+      this.body = 'You don\'t have a signed token dude :('
+    } else {
+      throw e;
+    }
+  }
+});
+
+app.use(jwt({
+  secret: config.site.secret,
+  algorithm: 'RS256'
+}).unless({ path: [/^\/public/] }));
 
 exports.app = app;
 
