@@ -6,7 +6,7 @@ class Navigation extends React.Component {
 	render() {
 		const	navItems = (
 			<ul className='nav navbar-nav navbar-right'>
-				<li><Link to='/auth'>Sign In</Link></li>
+				<li><Link to='/login'>Sign In</Link></li>
 				<li><Link to='/signup'>Sign Up</Link></li>
 			</ul>
 		)
