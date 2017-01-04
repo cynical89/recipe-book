@@ -1,7 +1,6 @@
 import React from 'react'
 import InputField from '../common/InputField'
 import validateLogin from '../../../shared/validations/validateLogin'
-import { login } from '../../utils/api'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -31,13 +30,7 @@ class LoginForm extends React.Component {
     e.preventDefault()
     this.setState({ errors: {} })
     if(this.isValid()) {
-      login(this.state).then(res => {
-        localStorage.setItem('userToken', res.data.token)
-        this.context.router.push('/')
-      }).catch(err => {
-        console.log(err)
-        this.context.router.push('/')
-      })
+      console.log(this.state)
     }
   }
 

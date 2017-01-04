@@ -1,9 +1,5 @@
-import axios from 'axios'
+const host = 'localhost'
+const port = 5000
 
-export function login(data) {
-  return axios.post('/login', data)
-}
-
-export function signup(data) {
-  return axios.post('/signup', data)
-}
+export const login = `http://${host}:${port}/login`
+export const signup = `http://${host}:${port}/signup`

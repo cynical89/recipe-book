@@ -1,7 +1,6 @@
 import React from 'react'
 import InputField from '../common/InputField'
 import validateSignUp from '../../../shared/validations/validateSignUp'
-import { signup } from '../../utils/api'
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -35,12 +34,7 @@ class SignUpForm extends React.Component {
     e.preventDefault()
     this.setState({ errors: {} })
     if(this.isValid()) {
-      signup(this.state).then(res => {
-        this.context.router.push('/')
-      }).catch(err => {
-        console.log(err)
-        this.context.router.push('/')
-      })
+      console.log(this.state)
     }
   }
 
