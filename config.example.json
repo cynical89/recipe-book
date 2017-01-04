@@ -2,6 +2,10 @@
 	"site": {
 		"name": "RecipeBook",
 		"port": 5000,
-		"secret": "koa+react-is-a-bamf"
+		"secret": "koa+react-is-a-bamf",
+		"db": {
+			"username": "user",
+			"password": "password"
+		}
 	}
 }

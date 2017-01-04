@@ -9,7 +9,7 @@ const serve = require("koa-static");
 const jwt = require("koa-jwt");
 const bodyParser = require("koa-bodyparser");
 
-const main = require("./server/controllers.main");
+const main = require("./server/controllers/main");
 
 const app = koa();
 
