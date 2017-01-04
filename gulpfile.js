@@ -20,7 +20,7 @@ function swallowError(error) {
 
 gulp.task("babel", () => {
 	browserify(paths.inputReact)
-	.transform("babelify", { presets: ["es2015", "react"]})
+	.transform("babelify", { presets: ["es2015", "react", "stage-0"]})
 	.bundle()
 	.on("error", swallowError)
 	.pipe(fs.createWriteStream(`${paths.outputReact}/bundle.js`));
