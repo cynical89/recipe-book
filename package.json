@@ -1,7 +1,7 @@
 {
-  "name": "koa-react-starter",
+  "name": "RecipeBook",
   "version": "1.0.0",
-  "description": "A great way to start your app with koa and react!",
+  "description": "An online recipe book",
   "main": "server.js",
   "scripts": {
     "start": "gulp set",
@@ -11,19 +11,19 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/cynical89/koa-react-starter.git"
+    "url": "git+https://github.com/cynical89/recipe-book.git"
   },
   "keywords": [
     "koa",
     "react",
-    "starter"
+    "recipe"
   ],
-  "author": "cynical89 (@cynical89)",
+  "author": "bkd705, cynical89",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/cynical89/koa-react-starter/issues"
+    "url": "https://github.com/cynical89/recipe-book/issues"
   },
-  "homepage": "https://github.com/cynical89/koa-react-starter#readme",
+  "homepage": "https://github.com/cynical89/recipe-book#readme",
   "dependencies": {
     "babel-preset-es2015": "^6.16.0",
     "babel-preset-react": "^6.16.0",
@@ -31,11 +31,8 @@
     "co-views": "^2.1.0",
     "koa": "^1.2.4",
     "koa-bodyparser": "^2.2.0",
-    "koa-generic-session": "^1.11.3",
-    "koa-passport": "^1.3.0",
     "koa-router": "^5.4.0",
     "koa-static": "^2.0.0",
-    "passport-github": "^1.1.0",
     "react": "^15.3.2",
     "react-bootstrap": "^0.30.5",
     "react-dom": "^15.3.2",
