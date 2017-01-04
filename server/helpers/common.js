@@ -2,6 +2,7 @@
 
 const config = require("../../config.json");
 const bcrypt = require("bcrypt");
+const jwt = require("koa-jwt");
 
 module.exports.signToken = function* signToken(user) {
   const token = jwt.sign({ user }, config.site.secret, { expiresIn: 60 * 60 });

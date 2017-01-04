@@ -4,7 +4,14 @@ import { Navbar, Nav, NavItem} from 'react-bootstrap'
 
 class Navigation extends React.Component {
 	render() {
-		const	navItems = (
+		const authItems = (
+			<ul className='nav navbar-nav navbar-right'>
+				<li><Link to='/dashboard'>Dashboard</Link></li>
+				<li><a href="#" onClick={this.props._logout}>Logout</a></li>
+			</ul>
+		)
+
+		const	unAuthItems = (
 			<ul className='nav navbar-nav navbar-right'>
 				<li><Link to='/login'>Sign In</Link></li>
 				<li><Link to='/signup'>Sign Up</Link></li>
@@ -24,12 +31,16 @@ class Navigation extends React.Component {
 						<Link className='navbar-brand' to='/'>Koa-React-Starter</Link>
 					</div>
 					<div id='navbar' className='navbar-collapse collapse'>
-						{navItems}
+						{this.props.authorized ? authItems : unAuthItems}
 					</div>
 				</div>
 			</nav>
 		)
 	}
+}
+
+Navigation.contextTypes = {
+	router: React.PropTypes.object.isRequired
 }
 
 export default Navigation;

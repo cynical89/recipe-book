@@ -30,7 +30,7 @@ app.use(function* catchErrors(next) {
 app.use(jwt({
   secret: config.site.secret,
   algorithm: 'RS256'
-}).unless({ path: [/^\/public/, /^\/signup/, /^\/login/, "/"] }));
+}).unless({ path: [/^\/public/, /^\/assets/, /^\/signup/, /^\/login/, /^\/dashboard/, "/"] }));
 
 exports.app = app;
 

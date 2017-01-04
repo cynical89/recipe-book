@@ -26,7 +26,7 @@ function validateSignUp(data) {
     errors.passwordConfirm = 'This field may not be empty!'
   }
   if(!Validator.equals(data.password, data.passwordConfirm)) {
-    errors.passwordConfirm = 'Passwords much match!'
+    errors.passwordConfirm = 'Passwords must match!'
   }
 
   return {

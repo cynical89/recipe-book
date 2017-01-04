@@ -1,7 +1,7 @@
 const co = require("co");
 const Promise = require("bluebird");
 const cradle	= Promise.promisifyAll(require("cradle"));
-const config = require("../config.json");
+const config = require("../../config.json");
 
 // A custom Error just for database problems.
 function CouchDBError(message) {
@@ -46,6 +46,7 @@ exports.saveDocument = function* saveDocument(document, database) {
 		document.error = false;
 		return document;
 	} catch (err) {
+		console.log(err)
 		return {
 			error: true,
 			message: `DB: Save of [${document.id}] failed`

@@ -1,12 +1,13 @@
 import React from 'react'
 import InputField from '../common/InputField'
 import validateLogin from '../../../shared/validations/validateLogin'
+import { login } from '../../utils/api'
 
 class LoginForm extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      email: '',
+      username: '',
       password: '',
       errors: {}
     }
@@ -30,8 +31,13 @@ class LoginForm extends React.Component {
     e.preventDefault()
     this.setState({ errors: {} })
     if(this.isValid()) {
-      console.log(this.state)
-      this.context.router.push('/')
+      login(this.state).then(res => {
+        localStorage.setItem('userToken', res.data.token)
+        this.context.router.push('/')
+      }).catch(err => {
+        console.log(err)
+        this.context.router.push('/')
+      })
     }
   }
 
@@ -43,11 +49,11 @@ class LoginForm extends React.Component {
         <h1>Log In!</h1>
 
         <InputField
-          label='E-Mail'
-          value={this.state.email}
-          field='email'
+          label='Username'
+          value={this.state.username}
+          field='username'
           onChange={this.onChange}
-          error={errors.email}
+          error={errors.username}
         />
 
         <InputField

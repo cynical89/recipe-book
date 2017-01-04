@@ -3,6 +3,7 @@
 const config = require("../../config.json")
 const common = require("../helpers/common");
 const userModel = require("../models/users");
+const db = require("../helpers/db");
 
 module.exports.login = function* login() {
 	const params = this.request.body;
@@ -24,13 +25,15 @@ module.exports.login = function* login() {
 };
 
 module.exports.signup = function* signup() {
+	const params = this.request.body;
 	if(!params.username || !params.password || !params.firstName || !params.lastName || !params.email) {
 		this.status = 400;
 		return this.body = "Invalid request";
 	}
 	const password = common.encryptPassword(params.password);
-	let user = userModel.netUser(params.username, password, params.email, params.firstName, params.lastName)
-	user = db.saveDocument(user, "users");
+	let user = userModel.newUser(params.username, password, params.email, params.firstName, params.lastName)
+	console.log(user)
+	user = yield db.saveDocument(user, "users");
 	if(user.error === true) {
 		this.status = 400;
 		return this.body = user.message;
