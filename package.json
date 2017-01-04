@@ -7,7 +7,8 @@
     "start": "gulp set",
     "webserver": "node server.js",
     "test": "mocha ./server/tests/ && ./node_modules/.bin/eslint .",
-    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./server/tests/"
+    "coverage": "./node_modules/.bin/istanbul cover ./node_modules/.bin/_mocha ./server/tests/",
+    "coveralls": "npm run coverage -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -55,10 +56,12 @@
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "chai": "^3.5.0",
+    "coveralls": "^2.11.15",
     "eslint": "^3.7.1",
     "gulp": "^3.9.1",
     "gulp-live-server": "0.0.30",
     "istanbul": "^0.4.5",
-    "mocha": "^3.1.0"
+    "mocha": "^3.1.0",
+    "mocha-lcov-reporter": "^1.2.0"
   }
 }
