@@ -29,7 +29,7 @@ module.exports.signup = function* signup() {
 		return this.body = "Invalid request";
 	}
 	const password = common.encryptPassword(params.password);
-	let user = userModel.netUser(params.username, params.password, params.email, params.firstName, params.lastName)
+	let user = userModel.netUser(params.username, password, params.email, params.firstName, params.lastName)
 	user = db.saveDocument(user, "users");
 	if(user.error === true) {
 		this.status = 400;
