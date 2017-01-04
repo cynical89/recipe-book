@@ -1,13 +1,36 @@
 import React from 'react'
 import { Link } from 'react-router'
 import { Navbar, Nav, NavItem} from 'react-bootstrap'
+import { checkWebToken } from '../../utils/authUtils'
 
 class Navigation extends React.Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			authorized: false,
+			token: ''
+		}
+	}
+
+	componentWillMount() {
+		if(checkWebToken(localStorage.getItem('userToken'))) {
+			this.setState({ authorized: true, token: localStorage.getItem('userToken') })
+		} else {
+			localStorage.removeItem('userToken')
+		}
+	}
+
+	_logout = () => {
+		localStorage.removeItem('userToken')
+		this.setState({ authorized: false })
+		this.context.router.push('/')
+	}
+
 	render() {
 		const authItems = (
 			<ul className='nav navbar-nav navbar-right'>
 				<li><Link to='/dashboard'>Dashboard</Link></li>
-				<li><a href="#" onClick={this.props._logout}>Logout</a></li>
+				<li><a href="#" onClick={this._logout}>Logout</a></li>
 			</ul>
 		)
 
@@ -31,7 +54,7 @@ class Navigation extends React.Component {
 						<Link className='navbar-brand' to='/'>Koa-React-Starter</Link>
 					</div>
 					<div id='navbar' className='navbar-collapse collapse'>
-						{this.props.authorized ? authItems : unAuthItems}
+						{this.state.authorized ? authItems : unAuthItems}
 					</div>
 				</div>
 			</nav>

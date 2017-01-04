@@ -1,6 +1,6 @@
 import React from 'react'
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
-import requireAuth from './utils/requireAuth'
+import { requireAuth } from './utils/authUtils'
 
 // Layouts
 import MainLayout from './layouts/MainLayout'
