@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router'
-import Footer from '../components/commmon/Footer'
+import Footer from '../components/common/Footer'
 import { PageHeader } from 'react-bootstrap'
 import Navigation from '../components/common/Navigation'
 
