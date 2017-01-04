@@ -19,7 +19,8 @@ app.use(function* catchErrors(next) {
 		yield next;
 	} catch (e) {
 		if (e.status == 401) {
-			this.redirect("/login");
+			this.status = e.status;
+			this.body = "Not Authorized";
 		} else {
 			throw e;
 		}
@@ -29,7 +30,7 @@ app.use(function* catchErrors(next) {
 app.use(jwt({
 	secret: config.site.secret,
 	algorithm: "RS256"
-}).unless({ path: [/^\/public/, /^\/assets/, /^\/signup/, /^\/login/, "/"] }));
+}).unless({ path: [/^\/public/, /^\/assets/, /^\/signup/, /^\/login/, /^\/dashboard/, "/"] }));
 
 exports.app = app;
 
