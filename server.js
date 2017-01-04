@@ -7,18 +7,11 @@ const config = require("./config.json");
 const koa = require("koa");
 const serve = require("koa-static");
 
-// passport support
-const session = require("koa-generic-session");
 const bodyParser = require("koa-bodyparser");
-const passport = require("koa-passport");
 
 const app = koa();
 
 exports.app = app;
-exports.passport = passport;
-
-// our model for passport.js
-require("./server/models/passport.js");
 
 // trust proxy
 app.proxy = true;
@@ -29,10 +22,6 @@ app.use(session());
 
 // body parser
 app.use(bodyParser());
-
-// passport
-app.use(passport.initialize());
-app.use(passport.session());
 
 // static file serve
 app.use(serve("./public"));
