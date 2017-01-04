@@ -4,7 +4,7 @@ const config = require("../../config.json");
 const common = require("../helpers/common");
 const db = require("../helpers/db");
 const recipeModel = require("../models/recipe");
-const userModel = require("../models/user");
+const userModel = require("../models/users");
 
 module.exports.make = function* make() {
 	const params = this.request.body;
