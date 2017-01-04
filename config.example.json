@@ -1,0 +1,7 @@
+{
+	"site": {
+		"name": "RecipeBook",
+		"port": 5000,
+		"secret": "koa+react-is-a-bamf"
+	}
+}

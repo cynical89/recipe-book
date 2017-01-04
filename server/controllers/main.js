@@ -1,35 +1,20 @@
 "use strict";
-const views = require("co-views");
-const render = views("public", { map: { html: "swig" } });
-let user = null;
 
-module.exports.verify = function verify() {
-	if (this.isAuthenticated()) {
-		user = this.session.passport.user;
-		return this.body = user;
+const config = require("./config.json")
+const common = require("../server/helpers/common");
+
+module.exports.login = function* login() {
+	const params = this.request.body;
+	if(!params.username || !params.password || !params.firstName || !params.lastName || !params.email) {
+		this.status = 400;
+		return this.body = "Invalid request";
 	}
-	return this.body = null;
-};
-
-module.exports.signout = function signout() {
-	if (this.isAuthenticated()) {
-		this.logout();
-		return this.redirect("/");
+	const user = yield db.getUser(params.username, "users");
+	if(user.error === true) {
+		this.status = 400;
+		return user.message;
 	}
-	return this.redirect("/error");
-};
-
-
-module.exports.account = function* account() {
-	if (this.isAuthenticated()) {
-		return this.body = yield render("index");
-	}
-	return this.redirect("/auth");
-};
-
-module.exports.auth = function* auth() {
-	if (this.isAuthenticated()) {
-		return this.redirect("/account");
-	}
-	return this.body = yield render("index");
+	//TODO: check for passwords matching
+	const token = yield common.signToken(user);
+	return this.body = token;
 };
