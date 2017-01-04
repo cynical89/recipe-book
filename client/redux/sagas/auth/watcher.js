@@ -6,3 +6,9 @@ export function* watchLogin() {
   console.log('watchLogin saga running')
   yield takeLatest(types.AUTH_LOGIN, asyncLogin)
 }
+
+export default function* rootWatcher() {
+  yield [
+    watchLogin()
+  ]
+}
