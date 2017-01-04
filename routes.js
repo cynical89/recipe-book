@@ -18,12 +18,12 @@ routes.post("/signup", auth.signup);
 
 routes.post("/recipes/new", main.make);
 routes.post("/recipes/edit", main.edit);
-routes.post("/recipes/delete", main.remove);
+routes.post("/recipes/delete/:id", main.remove);
 routes.post("/recipes/:id", main.recipe);
 routes.post("/recipes/all", main.all);
 routes.post("/recipes/collection", main.collection);
-routes.post("/recipes/remember", main.remember);
-routes.post("/recipes/forget", main.forget);
+routes.post("/recipes/remember/:id", main.remember);
+routes.post("/recipes/forget/:id", main.forget);
 routes.post("/recipes/search", main.search);
 
 // All pages route to index.html and react-router routes the pages from there
