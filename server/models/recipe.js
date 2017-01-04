@@ -1,7 +1,7 @@
 "use strict";
 
 module.exports = {
-	newRecipe: (name, description, author, ingredients = [], directions = "", isPublic = true) => {
+	newRecipe: (name, description, author, ingredients, directions, isPublic) => {
 		const recipe = {
 			error: false,
 			name: name,
@@ -11,6 +11,14 @@ module.exports = {
 			ingredients: [],
 			directions: directions
 		};
+		return recipe;
+	},
+	editName: (recipe, name) => {
+		recipe.name = name;
+		return recipe;
+	},
+	editDescription: (recipe, desc) => {
+		recipe.description = desc;
 		return recipe;
 	},
 	editIngredients: (recipe, ingredients) => {

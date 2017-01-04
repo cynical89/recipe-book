@@ -67,3 +67,17 @@ exports.removeDocument = function* removeDocument(id, database) {
 		};
 	}
 };
+
+exports.getAllRecipes = function* getAllRecipes() {
+	try {
+		const db = connectToDatabase("recipes");
+		const doc = yield db.viewAsync("getrecipes/all");
+		doc.error = false;
+		return doc;
+	} catch (err) {
+		return {
+			error: true,
+			message: err
+		};
+	}
+};
