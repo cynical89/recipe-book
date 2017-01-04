@@ -1,20 +1,18 @@
-# koa-react-starter
-A starter kit with [Koa](http://koajs.com/) and [React](https://facebook.github.io/react/)!
-
-This kit was inspired by [Koa-Starter](https://github.com/snollygolly/koa-starter)
+# Recipe Book [![Build Status](https://travis-ci.org/cynical89/recipe-book.svg?branch=master)](https://travis-ci.org/cynical89/recipe-book) [![Coverage Status](https://coveralls.io/repos/github/cynical89/recipe-book/badge.svg?branch=master)](https://coveralls.io/github/cynical89/recipe-book?branch=master)
+A place to hold and store recipes
 
 ## Prerequisites
 * [Node.js](https://nodejs.org/en/) (Version 5 and up recommended)
-* [Github Client ID and Secret](https://github.com/settings/developers) (for OAuth)
+* [CouchDB](https://couchdb.apache.org)
 
 ### Installation
 
 * Clone down the repository.
 ```
-git clone https://github.com/cynical89/koa-react-starter.git
+git clone https://github.com/cynical89/recipe-book.git
 ```
 
-* Install packages (from inside the koa-starer folder).
+* Install packages (from inside the reciepe-book folder).
 ```
 npm install
 ```
