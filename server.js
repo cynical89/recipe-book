@@ -16,10 +16,6 @@ exports.app = app;
 // trust proxy
 app.proxy = true;
 
-// sessions
-app.keys = [config.site.secret];
-app.use(session());
-
 // body parser
 app.use(bodyParser());
 

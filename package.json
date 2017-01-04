@@ -1,5 +1,5 @@
 {
-  "name": "Recipe Book",
+  "name": "RecipeBook",
   "version": "1.0.0",
   "description": "An online recipe book",
   "main": "server.js",

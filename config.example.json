@@ -1,14 +1,7 @@
 {
 	"site": {
-		"name": "Koa-React-Starter",
+		"name": "RecipeBook",
 		"port": 5000,
-		"secret": "koa+react-is-a-bamf",
-		"oauth": {
-			"host": "http://127.0.0.1",
-			"github": {
-				"clientID": "Gihub client ID",
-				"clientSecret": "Gihub client secret"
-			}
-		}
+		"secret": "koa+react-is-a-bamf"
 	}
 }
