@@ -1,6 +1,6 @@
 import jwtDecode from 'jwt-decode'
 
-export default function requireAuth(nextState, replace) {
+export function requireAuth(nextState, replace) {
   if (!localStorage.getItem('userToken')) {
     replace({
       pathname: '/login',

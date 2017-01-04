@@ -4,9 +4,14 @@ const config = require("../../config.json");
 const bcrypt = require("bcrypt");
 const jwt = require("koa-jwt");
 
-module.exports.signToken = function* signToken(user) {
-  const token = jwt.sign({ user }, config.site.secret, { expiresIn: 60 * 60 });
-  return {token: token};
+module.exports.signToken = function signToken(user) {
+	const token = jwt.sign({ user }, config.site.secret, { expiresIn: 60 * 60 });
+	return {token: token};
+};
+
+module.exports.verifyToken = function verifyToken(token) {
+	const payload = jwt.verify({ token }, config.site.secret);
+	return payload;
 };
 
 module.exports.encryptPassword = function encryptPassword(password) {

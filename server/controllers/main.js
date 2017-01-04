@@ -1,47 +1,24 @@
 "use strict";
 
-const config = require("../../config.json")
+const config = require("../../config.json");
 const common = require("../helpers/common");
-const userModel = require("../models/users");
 const db = require("../helpers/db");
 
-module.exports.login = function* login() {
-	const params = this.request.body;
-	if(!params.username || !params.password) {
-		this.status = 400;
-		return this.body = "Invalid request";
-	}
-	const user = yield db.getDocument(params.username, "users");
-	if(user.error === true) {
-		this.status = 400;
-		return user.message;
-	}
-	if(common.comparePassword(params.password, user)) {
-		const token = yield common.signToken(user);
-		return this.body = token;
-	}
-	this.status = 400;
-	return this.body = "No such username/password combination.";
+module.exports.make = function* make() {
 };
-
-module.exports.signup = function* signup() {
-	const params = this.request.body;
-	if(!params.username || !params.password || !params.firstName || !params.lastName || !params.email) {
-		this.status = 400;
-		return this.body = "Invalid request";
-	}
-	let user = yield db.getDocument(params.username, "users");
-	if(user.error === false) {
-		this.status = 400;
-		return this.body = "A user with this username already exists";
-	}
-	const password = common.encryptPassword(params.password);
-	user = userModel.newUser(params.username, password, params.email, params.firstName, params.lastName)
-	console.log(user)
-	user = yield db.saveDocument(user, "users");
-	if(user.error === true) {
-		this.status = 400;
-		return this.body = user.message;
-	}
-	return this.body = user;
-}
+module.exports.edit = function* edit() {
+};
+module.exports.remove = function* remove() {
+};
+module.exports.recipe = function* recipe() {
+};
+module.exports.all = function* all() {
+};
+module.exports.collection = function* collection() {
+};
+module.exports.remember = function* remember() {
+};
+module.exports.forget = function* forget() {
+};
+module.exports.search = function* search() {
+};
