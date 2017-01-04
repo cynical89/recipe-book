@@ -21,7 +21,7 @@ module.exports.login = function* login() {
 		return this.body = token;
 	}
 	this.status = 400;
-	return this.body("No such username/password combination.");
+	return this.body = "No such username/password combination.";
 };
 
 module.exports.signup = function* signup() {
@@ -30,8 +30,13 @@ module.exports.signup = function* signup() {
 		this.status = 400;
 		return this.body = "Invalid request";
 	}
+	let user = yield db.getDocument(params.username, "users");
+	if(user.error === false) {
+		this.status = 400;
+		return this.body = "A user with this username already exists";
+	}
 	const password = common.encryptPassword(params.password);
-	let user = userModel.newUser(params.username, password, params.email, params.firstName, params.lastName)
+	user = userModel.newUser(params.username, password, params.email, params.firstName, params.lastName)
 	console.log(user)
 	user = yield db.saveDocument(user, "users");
 	if(user.error === true) {
