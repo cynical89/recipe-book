@@ -1,6 +1,8 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import InputField from '../common/InputField'
 import validateSignUp from '../../../shared/validations/validateSignUp'
+import { signup } from '../../redux/actions/auth/authActions'
 
 class SignUpForm extends React.Component {
   constructor(props) {
@@ -34,7 +36,8 @@ class SignUpForm extends React.Component {
     e.preventDefault()
     this.setState({ errors: {} })
     if(this.isValid()) {
-      console.log(this.state)
+      this.props.dispatch(signup(this.state))
+      this.context.router.push('/')
     }
   }
 
@@ -105,4 +108,4 @@ SignUpForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default SignUpForm
+export default connect()(SignUpForm)

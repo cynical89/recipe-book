@@ -13,3 +13,15 @@ export const signup = (data) => {
     data
   }
 }
+
+export const logout = () => {
+  return {
+    type: types.AUTH_LOGOUT
+  }
+}
+
+export const setToken = () => {
+  return {
+    type: types.AUTH_TOKEN
+  }
+}

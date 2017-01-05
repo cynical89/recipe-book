@@ -5,6 +5,8 @@ import createSagaMiddleware from 'redux-saga'
 import { Provider } from 'react-redux'
 import rootReducer from './redux/reducers/index'
 import rootSaga from './redux/sagas/index'
+import { checkWebToken } from './utils/authUtils'
+import { setToken } from './redux/actions/auth/authActions'
 
 const sagaMiddleware = createSagaMiddleware()
 
@@ -17,6 +19,10 @@ const store = createStore(
 )
 
 sagaMiddleware.run(rootSaga)
+
+if(checkWebToken(localStorage.userToken)) {
+  store.dispatch(setToken())
+}
 
 // Routes are all in a separate file
 import Router from './router'
