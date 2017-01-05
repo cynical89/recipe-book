@@ -5,18 +5,27 @@ const common = require("../helpers/common");
 const userModel = require("../models/users");
 const db = require("../helpers/db");
 
+/**
+* POST '/login'
+* @param {string} username - username for the person loggin in
+* @param {string} password - password for the user logging in
+* @returns {token} JSON Web Token - an authorization token for the user
+*/
 module.exports.login = function* login() {
 	const params = this.request.body;
 	if (!params.username || !params.password) {
 		this.status = 400;
 		return this.body = "Invalid request";
 	}
+	console.log("get params");
 	const user = yield db.getDocument(params.username, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return user.message;
 	}
+	console.log("get user");
 	if (common.comparePassword(params.password, user)) {
+		console.log("check password");
 		const token = yield common.signToken(user);
 		return this.body = token;
 	}
@@ -24,6 +33,15 @@ module.exports.login = function* login() {
 	return this.body = "No such username/password combination.";
 };
 
+/**
+* POST '/signup'
+* @param {string} username - username for the new user
+* @param {string} password - password for the new user
+* @param {string} email - email address of the new user
+* @param {string} firstName - first name of the new user
+* @param {string} lastName - last name of the new user
+* @returns {object} user - the full user that was created
+*/
 module.exports.signup = function* signup() {
 	const params = this.request.body;
 	if (!params.username || !params.password || !params.firstName || !params.lastName || !params.email) {
