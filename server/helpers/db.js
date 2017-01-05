@@ -13,16 +13,17 @@ CouchDBError.prototype = Error.prototype;
 // Connects to a database and returns the DB object.
 const connectToDatabase = (dbName) => {
 	try {
-		return new(cradle.Connection)("http://138.197.214.239", 5984, {auth: {username: config.site.db.username,
-			password: config.site.db.password}}).database(dbName);
+		// return new(cradle.Connection().database(dbName));
+		return new(cradle.Connection)(config.site.db.host, config.site.db.port, { auth: {
+			username: config.site.db.username,
+			password: config.site.db.password
+		}}).database(dbName);
 	} catch (err) {
 		throw new CouchDBError(`DB: Get: Connection to database [${dbName}] failed`);
 	}
 };
 
-// This is for the orders!
-
-// Grabs an order document from the database in CouchDB.
+// Grabs a document from the database in CouchDB.
 exports.getDocument = function* getDocument(id, database) {
 	try {
 		const db = connectToDatabase(database);
@@ -37,7 +38,7 @@ exports.getDocument = function* getDocument(id, database) {
 	}
 };
 
-// Saves an order document in the database in CouchDB.
+// Saves a document in the database in CouchDB.
 exports.saveDocument = function* saveDocument(document, database) {
 	try {
 		const db = connectToDatabase(database);
@@ -53,7 +54,7 @@ exports.saveDocument = function* saveDocument(document, database) {
 	}
 };
 
-// Removes an order document in the database in CouchDB.
+// Removes a document in the database in CouchDB.
 exports.removeDocument = function* removeDocument(id, database) {
 	try {
 		const db = connectToDatabase(database);
