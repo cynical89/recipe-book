@@ -38,7 +38,7 @@ npm start
 ### Development progress.
 This is a quick run down on progress for anyone interested.
 
-* Back end
+#### Back end
 The back end is completed with routes, controllers, tests, and all wired up to the db. You can consume the api with the following routes.
 
 - POST ROUTES
@@ -54,5 +54,5 @@ The back end is completed with routes, controllers, tests, and all wired up to t
 - /recipes/forget/
 - /recipes/search
 
-* Front end
+#### Front end
 The front end is still incompleted and will be worked on as there is time. Currently the authentication flow is done. It is already consuming the `/login` and `/signup` routes. The navigation and flow for the rest of the app needs to get completed.
