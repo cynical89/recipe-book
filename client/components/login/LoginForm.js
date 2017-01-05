@@ -1,6 +1,8 @@
 import React from 'react'
 import InputField from '../common/InputField'
 import validateLogin from '../../../shared/validations/validateLogin'
+import { connect } from 'react-redux'
+import { login } from '../../redux/actions/auth/authActions'
 
 class LoginForm extends React.Component {
   constructor(props) {
@@ -30,7 +32,8 @@ class LoginForm extends React.Component {
     e.preventDefault()
     this.setState({ errors: {} })
     if(this.isValid()) {
-      console.log(this.state)
+      this.props.dispatch(login(this.state))
+      this.context.router.push('/')
     }
   }
 
@@ -68,4 +71,4 @@ LoginForm.contextTypes = {
   router: React.PropTypes.object.isRequired
 }
 
-export default LoginForm
+export default connect()(LoginForm)

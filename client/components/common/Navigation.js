@@ -3,14 +3,7 @@ import { Link } from 'react-router'
 import { Navbar, Nav, NavItem} from 'react-bootstrap'
 import { checkWebToken } from '../../utils/authUtils'
 
-const Navigation = (props) => {
-
-	const _logout = () => {
-		localStorage.removeItem('userToken')
-		this.setState({ authorized: false })
-		this.context.router.push('/')
-	}
-
+const Navigation = ({ _logout, isAuth}) => {
 	const authItems = (
 		<ul className='nav navbar-nav navbar-right'>
 			<li><Link to='/dashboard'>Dashboard</Link></li>
@@ -38,7 +31,7 @@ const Navigation = (props) => {
 					<Link className='navbar-brand' to='/'>Koa-React-Starter</Link>
 				</div>
 				<div id='navbar' className='navbar-collapse collapse'>
-					{unAuthItems}
+					{isAuth ? authItems : unAuthItems}
 				</div>
 			</div>
 		</nav>
