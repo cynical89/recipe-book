@@ -17,15 +17,12 @@ module.exports.login = function* login() {
 		this.status = 400;
 		return this.body = "Invalid request";
 	}
-	console.log("get params");
 	const user = yield db.getDocument(params.username, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return user.message;
 	}
-	console.log("get user");
 	if (common.comparePassword(params.password, user)) {
-		console.log("check password");
 		const token = yield common.signToken(user);
 		return this.body = token;
 	}

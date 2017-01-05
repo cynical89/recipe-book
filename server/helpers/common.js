@@ -9,11 +9,6 @@ module.exports.signToken = function signToken(user) {
 	return {token: token};
 };
 
-module.exports.verifyToken = function verifyToken(token) {
-	const payload = jwt.verify({ token }, config.site.secret);
-	return payload;
-};
-
 module.exports.encryptPassword = function encryptPassword(password) {
 	return bcrypt.hashSync(password, bcrypt.genSaltSync(12), null);
 };

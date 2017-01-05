@@ -4,6 +4,8 @@
 		"port": 5000,
 		"secret": "koa+react-is-a-bamf",
 		"db": {
+			"host": "http://127.0.0.1",
+			"port": "5984",
 			"username": "user",
 			"password": "password"
 		}
