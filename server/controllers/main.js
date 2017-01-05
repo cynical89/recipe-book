@@ -29,14 +29,14 @@ module.exports.make = function* make() {
 		this.status = 401;
 		return this.body = "Unauthorized request";
 	}
-	let recipe = recipeModel.newRecipe(params.name, params.description, user.id,
+	let recipe = recipeModel.newRecipe(params.name, params.description, user._id,
 		params.ingredients, params.directions, params.isPublic);
 	recipe = yield db.saveDocument(recipe, "recipes");
 	if (recipe.error === true) {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	user = yield db.getDocument(user.id, "users");
+	user = yield db.getDocument(user._id, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return this.body = user.message;
@@ -76,7 +76,7 @@ module.exports.edit = function* edit() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	if (recipe.author !== user.id) {
+	if (recipe.author !== user._id) {
 		this.status = 401;
 		return this.body = "Only the author can modify the recipe";
 	}
@@ -92,7 +92,7 @@ module.exports.edit = function* edit() {
 	if (params.directions) {
 		recipe = recipeModel.editDirections(recipe, params.directions);
 	}
-	if (params.isPublic) {
+	if (params.isPublic !== undefined) {
 		recipe = recipeModel.editPrivacy(recipe, params.isPublic);
 	}
 	recipe = yield db.saveDocument(recipe, "recipes");
@@ -124,7 +124,7 @@ module.exports.remove = function* remove() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	if (recipe.author !== user.id) {
+	if (recipe.author !== user._id) {
 		this.status = 401;
 		return this.body = "Only the author can remove this recipe";
 	}
@@ -133,7 +133,7 @@ module.exports.remove = function* remove() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	user = yield db.getDocument(user.id, "users");
+	user = yield db.getDocument(user._id, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return this.body = user.message;
@@ -162,7 +162,7 @@ module.exports.recipe = function* recipe() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	if (recipe.isPublic === false && recipe.author !== user.id) {
+	if (recipe.isPublic === false && recipe.author !== user._id) {
 		this.status = 404;
 		return this.body = "We cannot find this recipe in our system";
 	}
@@ -184,7 +184,7 @@ module.exports.all = function* all() {
 		return this.body = recipes.message;
 	}
 	for (const recipe of recipes) {
-		if (recipe.isPublic === false && recipe.author !== user.id) {
+		if (recipe.isPublic === false && recipe.author !== user._id) {
 			const index = recipes.indexOf(recipe);
 			recipes.splice(index, 1);
 		}
@@ -202,7 +202,12 @@ module.exports.collection = function* collection() {
 		this.status = 401;
 		return this.body = "Unauthorized request";
 	}
-	let collection;
+	user = yield db.getDocument(user._id, "users");
+	if (user.error === true) {
+		this.status = 400;
+		return this.body = user.message;
+	}
+	const collection = [];
 	for (const recipe of user.recipes) {
 		const doc = yield db.getDocument(recipe, "recipes");
 		collection.push(doc);
@@ -231,11 +236,11 @@ module.exports.remember = function* remember() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	if (recipe.isPublic === false && recipe.author !== user.id) {
+	if (recipe.isPublic === false && recipe.author !== user._id) {
 		this.status = 404;
 		return this.body = "We cannot find this recipe in our system";
 	}
-	user = yield db.getDocument(user.id, "users");
+	user = yield db.getDocument(user._id, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return this.body = user.message;
@@ -270,11 +275,11 @@ module.exports.forget = function* forget() {
 		this.status = 400;
 		return this.body = recipe.message;
 	}
-	if (recipe.isPublic === false && recipe.author !== user.id) {
+	if (recipe.isPublic === false && recipe.author !== user._id) {
 		this.status = 404;
 		return this.body = "We cannot find this recipe in our system";
 	}
-	user = yield db.getDocument(user.id, "users");
+	user = yield db.getDocument(user._id, "users");
 	if (user.error === true) {
 		this.status = 400;
 		return this.body = user.message;
@@ -295,7 +300,7 @@ module.exports.forget = function* forget() {
 */
 module.exports.search = function* search() {
 	const params = this.request.body;
-	let results;
+	const results = [];
 	if (!params.searchString) {
 		this.status = 400;
 		return this.body = "Invalid request.";
@@ -310,8 +315,10 @@ module.exports.search = function* search() {
 		this.status = 400;
 		return this.body = recipes.message;
 	}
-	for (const recipe in recipes) {
-		if (recipe.isPublic === true && recipe.name.indexOf(params.searchString) > -1) {
+	for (const recipe of recipes) {
+		console.log(recipe.value);
+		if ((recipe.value.isPublic === true || recipe.value.author === user._id)
+			&& recipe.value.name.includes(params.searchString)) {
 			results.push(recipe);
 		}
 	}
