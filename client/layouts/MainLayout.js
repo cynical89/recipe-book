@@ -30,7 +30,7 @@ class MainLayout extends React.Component {
 }
 
 const footerConfig = {
-	footerText: 'This site was built with react!'
+	footerText: 'Home Layout'
 }
 
 MainLayout.contextTypes = {

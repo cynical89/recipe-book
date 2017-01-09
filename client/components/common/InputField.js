@@ -13,6 +13,7 @@ const InputField = ({ field, value, label, error, placeholder, type, onChange, d
         value={value}
         className='form-control'
         placeholder={placeholder}
+        disabled={disabled}
       />
       {error && <span className='help-block'>{ error }</span> }
     </div>
@@ -32,7 +33,8 @@ InputField.propTypes = {
 }
 
 InputField.defaultProps = {
-  type: 'text'
+  type: 'text',
+  disabled: false
 }
 
 export default InputField
